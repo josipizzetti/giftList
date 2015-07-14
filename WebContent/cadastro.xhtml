@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<h:body> 
+	<h:form>
+	<h:messages globalOnly="true"/>
+		<h:panelGrid columns="3">
+			<h:outputText value="Nome: " />
+			<h:inputText id="inNome" value="#{usuarioMB.usuario.nome}" />
+			<h:message for="inNome"/>
+			
+			<h:outputText value="E-mail: " />
+			<h:inputText id="inEmail" value="#{usuarioMB.usuario.email}" />
+			<h:message for="inEmail"/>
+			
+			<h:outputText value="Senha: " />
+			<h:inputSecret id="inSenha" value="#{usuarioMB.usuario.senha}" />
+			<h:message for="inSenha"/>
+		</h:panelGrid>
+		<h:commandButton action="#{usuarioMB.salvar()}" value="Salvar" />
+	</h:form>
+</h:body> 
+</html>
