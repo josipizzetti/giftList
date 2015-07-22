@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+      template="/logado/template.xhtml">
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+	<title>Gift List-Lista Amigo</title>
+</head>
+<body>
+
+	<ui:define name="conteudo">
+	<div class="container">
+	<div class="jumbotron">
+		<div class="container">
+			<h2>Veja as seleções de <span style="text-transform: capitalize;">
+			<h:outputText value="#{userPresentesMB.usuario.nome}" >
+			</h:outputText></span>, e acerte em seu presente!</h2>
+			
+		</div>
+	</div>
+	<p:dataTable var="presente"  value="#{userPresentesMB.usuario.presentes}">
+		<p:column>
+			<f:facet name="header">Nome</f:facet>
+			#{presente.nome}
+		</p:column>
+		<p:column>
+			<f:facet name="header">Descricao</f:facet>
+			#{presente.descricao}
+		</p:column>
+		<p:column>
+				<f:facet name="header">Onde encontrar</f:facet>
+				#{presente.ondeEncontrar}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Evento</f:facet>
+				#{presente.evento.nome}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Data evento</f:facet>
+				<h:outputText value="#{presente.dtEvento}" id="dataEvento">
+						<f:convertDateTime locale="pt,BR" dateStyle="long"
+									pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+			<p:column>
+				<p:commandLink action="#{userPresentesMB.passaId}" value="selecione">
+					<f:param value="#{presente.id}" name="idPresente"></f:param>
+					<f:param value="#{presente.id}" name="presenteSelecionadoId"></f:param>
+					<f:param value="#{presente.usuario.id}" name="usuarioSelecionadoId"></f:param>
+				</p:commandLink>
+			</p:column>
+	</p:dataTable>
+	</div>
+
+	</ui:define>
+</body>
+</ui:composition>

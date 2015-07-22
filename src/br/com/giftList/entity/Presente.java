@@ -1,16 +1,19 @@
 package br.com.giftList.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import br.com.giftList.dao.PresenteDAO;
+
 @Entity
-public class Presente {
+public class Presente implements Serializable{
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -18,7 +21,10 @@ public class Presente {
 	private String nome;
 	private String descricao;
 	private String ondeEncontrar;
-	@ManyToOne (cascade = CascadeType.ALL)
+	@Lob
+	private byte[] imagem;
+	private String nomeImagem;
+	@ManyToOne 
 	private Evento evento;
 	private Date dtEvento;
 	@ManyToOne
@@ -67,4 +73,16 @@ public class Presente {
 		this.usuario = usuario;
 	}
 	
+	public byte[] getImagem() {
+		return imagem;
+	}
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+	public String getNomeImagem() {
+		return nomeImagem;
+	}
+	public void setNomeImagem(String nomeImagem) {
+		this.nomeImagem = nomeImagem;
+	}
 }

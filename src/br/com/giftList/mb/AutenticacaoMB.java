@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.giftList.dao.UsuarioDAO;
 import br.com.giftList.entity.Usuario;
-import br.com.locadora.security.Cripto;
+import br.com.giftList.security.Cripto;
 
 @ManagedBean
 public class AutenticacaoMB {
@@ -30,7 +30,7 @@ public class AutenticacaoMB {
 				session.setAttribute("id", u.getId());
 				
 				
-				return "/logado/home.jsf";
+				return "logado/home.jsf?faces-redirect=true";
 			}
 		}
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
@@ -40,10 +40,9 @@ public class AutenticacaoMB {
 	
 	public String logout(){
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);		
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		session.invalidate();
-		
-		return "/index.jsf";
+		return "logout";
 	}
 
 	public String getEmail() {

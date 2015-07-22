@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+      template="/logado/template.xhtml">
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+	
+</head>
+<body>
+	<ui:define name="conteudo">
+		<div class="container">
+			<div class="jumbotron">
+					<h2><span style="text-transform: capitalize;"><h:outputText value="#{meusPresentesMB.usuario.nome}" /></span>
+					, avise seu amigo <span style="text-transform: capitalize;">
+					<h:outputText value="#{userPresentesMB.usuario.nome}"/></span>&nbsp;que você o presenteará com:</h2><br></br>
+			</div>
+				<div class="container">
+				
+					<p:graphicImage height="200px" value="#{fileUploadMB.image}" id="image" cache="false">
+					</p:graphicImage>
+					<h2><h:outputText value="#{presenteSelecionadoMB.presente.nome}" /></h2>
+					<br />
+					<p:commandButton value="Enviar aviso" image="ui-icon-mail-closed"	action="#{userPresentesMB.sendEmail()}">
+					</p:commandButton>
+					<p:messages />
+				
+				</div>
+		</div>
+
+	</ui:define>
+</body>
+</ui:composition>

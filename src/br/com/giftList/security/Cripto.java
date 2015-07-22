@@ -1,4 +1,4 @@
-package br.com.locadora.security;
+package br.com.giftList.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

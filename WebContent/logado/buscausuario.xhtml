@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+      template="/logado/template.xhtml">
+
+<head>
+<title>Gift List-Busca Amigo</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+</head>
+<body>
+
+	<ui:define name="conteudo">
+	<div class="container">
+		<div class="jumbotron">
+			<div class="container">
+				<h2 style="text-transform: capitalize;">Olá, <h:outputText value="#{meusPresentesMB.usuario.nome}" /></h2>
+			</div>
+		</div>
+		<h:form id="form">
+			
+			<h:inputText id="filtro" value="#{usuarioMB.filtro}" />
+			<h:commandButton action="#{usuarioMB.buscaPorNome()}" value="Buscar">
+				<f:ajax execute="filtro" render="@form" />
+			</h:commandButton>
+			<p:dataTable id="showList" value="#{usuarioMB.lista}" var="usuario">
+				<p:column>
+					<f:facet name="header">Usuários</f:facet>
+					#{usuario.nome}
+				</p:column>
+				<p:column>
+					<p:link outcome="listaamigo.jsf"   value="Ver Lista">
+						<f:param name="usuarioSelecionadoId" value="#{usuario.id}"></f:param>
+					</p:link>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		</div>
+
+	</ui:define>
+</body>
+</ui:composition>

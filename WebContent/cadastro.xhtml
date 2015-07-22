@@ -1,27 +1,82 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<h:body> 
-	<h:form>
-	<h:messages globalOnly="true"/>
-		<h:panelGrid columns="3">
-			<h:outputText value="Nome: " />
-			<h:inputText id="inNome" value="#{usuarioMB.usuario.nome}" />
-			<h:message for="inNome"/>
-			
-			<h:outputText value="E-mail: " />
-			<h:inputText id="inEmail" value="#{usuarioMB.usuario.email}" />
-			<h:message for="inEmail"/>
-			
-			<h:outputText value="Senha: " />
-			<h:inputSecret id="inSenha" value="#{usuarioMB.usuario.senha}" />
-			<h:message for="inSenha"/>
-		</h:panelGrid>
-		<h:commandButton action="#{usuarioMB.salvar()}" value="Salvar" />
-	</h:form>
-</h:body> 
+<h:head>
+	<title>Gift List-Cadastro</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+</h:head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.jsf">Gift List</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<h:form class="navbar-form navbar-right">
+				<div class="form-group">
+					<h:inputText value="#{autenticacaoMB.email}" id="inEmail" required="true" requiredMessage="E-mail obrigatório!" validator="validarEmail" placeholder="Email" class="form-control"/>
+					<h:message for="inEmail" />
+				</div>
+				<div class="form-group">
+					<h:inputSecret id="inSenha" placeholder="Password" class="form-control" value="#{autenticacaoMB.senha}" required="true" requiredMessage="Senha obrigatória!" />
+					<h:message for="inSenha" />
+				</div>
+				<h:commandButton action="#{autenticacaoMB.autentica()}"	value="Entrar" class="btn btn-success"/>
+			</h:form>
+		</div>
+		<!--/.navbar-collapse -->
+	</div>
+	</nav>
+	<div class="container">
+		<div class="jumbotron">
+			<div class="container">
+				<h2>Faça seu cadastro:</h2>
+			</div>
+		</div>
+
+
+		<h:form method="post" action="#{usuarioMB}" name="frmAddUser"
+			class="form-horizontal">
+			<h:messages globalOnly="true" />
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">Nome
+					&raquo;</span>
+				<h:inputText id="inNome" value="#{usuarioMB.usuario.nome}"
+					class="form-control" aria-describedby="basic-addon1" />
+			</div>
+			<br></br>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">Email
+					&raquo;</span>
+				<h:inputText id="inEmail" value="#{usuarioMB.usuario.email}"
+					class="form-control" />
+			</div>
+			<br></br>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">Senha
+					&raquo;</span>
+				<h:inputSecret id="inSenha" value="#{usuarioMB.usuario.senha}"
+					class="form-control" />
+			</div>
+			<br></br>
+			<div>
+				<h:commandButton action="#{usuarioMB.salvar()}" value="Salvar"
+					class="btn btn-default" />
+			</div>
+		</h:form>
+	</div>
+
+</body>
 </html>

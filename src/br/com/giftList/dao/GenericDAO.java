@@ -11,52 +11,53 @@ import br.com.giftList.util.JpaUtil;
 
 public class GenericDAO<T> implements Serializable{
 	
-	EntityManager em = JpaUtil.getEntityManager();
-	
 	public void salvar(T entity){
-		em.getTransaction().begin(); //transaction para iniciar essa transacao e nenhum outro usuario conseguir mexer, entrara na fila
+		JpaUtil.getEntityManager().getTransaction().begin(); //transaction para iniciar essa transacao e nenhum outro usuario conseguir mexer, entrara na fila
 		try {
-			em.persist(entity);
-			em.getTransaction().commit();//qd der o commit libera a transacao para outro usuario
+			JpaUtil.getEntityManager().persist(entity);
+			JpaUtil.getEntityManager().getTransaction().commit();//qd der o commit libera a transacao para outro usuario
 		} catch (Exception e) {
-		em.getTransaction().rollback();
+			JpaUtil.getEntityManager().getTransaction().rollback();
+		}finally{
+			 JpaUtil.closeEntityManager();
 		}
 	}
 	
-	public void inserir(T entity){
-		em.getTransaction().begin();
-		try {
-			em.persist(entity);
-			em.getTransaction().commit();
-			
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-		}
-	}
 	
 	public List<T> listar(Class classe){ 
-		return em.createQuery("select x from "+classe.getSimpleName() +" x").getResultList();
+		return JpaUtil.getEntityManager().createQuery("select x from "+classe.getSimpleName() +" x").getResultList();
 	}
+	
+	
 	
 	public void atualizar(T entity){
 		try {
-			em.getTransaction().begin();
-			em.merge(entity);
-			em.getTransaction().commit();
+			JpaUtil.getEntityManager().getTransaction().begin();
+			JpaUtil.getEntityManager().merge(entity);
+			JpaUtil.getEntityManager().getTransaction().commit();
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			JpaUtil.getEntityManager().getTransaction().rollback();
 		}
 		
 	}
 	 public void deletar(T entity){
-		 em.getTransaction().begin();
-		 em.remove(entity);
-		 em.getTransaction().commit();
+		 EntityManager entityManager = JpaUtil.getEntityManager();
+		try {
+			 entityManager.getTransaction().begin();
+			 entityManager.refresh(entity);
+			 entityManager.remove(entity);
+			 entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+		}finally{
+			JpaUtil.closeEntityManager();
+		}
 		 
 	 }
 	 
 	public T buscaId(Integer id, Class classe){
-			return (T) em.find(classe, id);
+			return (T) JpaUtil.getEntityManager().find(classe, id);
 		}
 	
 

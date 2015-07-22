@@ -1,13 +1,118 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+      template="/logado/template.xhtml">
 
-<h:head></h:head> 
-<body> 
-<h1>entrou</h1>
-<h:outputText value="#{meusPresentesMB.usuario.nome}" />
-
-</body> 
-</html>
+<h:head>
+	<title>Gift List-Home</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+</h:head>
+<body>
+	<ui:define name="conteudo">
+		<div class="container">
+			<div class="jumbotron">
+				<h2 style="text-transform: capitalize;">Olá,&nbsp;<h:outputText  value="#{meusPresentesMB.usuario.nome}" />!</h2>
+			</div>
+			<h:form enctype="multipart/form-data">
+			<h:messages id="mensagensGlobais" globalOnly="true"/>
+			<p:dataTable id="tablePresentes" value="#{meusPresentesMB.usuario.presentes}" var="presente" rows="4"
+				paginator="true" >
+				<p:column filterBy="#{presente.nome}" sortBy="#{presente.nome}">
+					<f:facet name="header">Nome do presente</f:facet>
+					#{presente.nome}
+				</p:column>
+				<p:column>
+					<f:facet name="header">Descrição do presente</f:facet>
+					#{presente.descricao}
+				</p:column>
+				<p:column>
+					<f:facet name="header">Onde encontrar</f:facet>
+					#{presente.ondeEncontrar}
+				</p:column>
+				<p:column filterBy="#{presente.evento.nome}"
+					sortBy="#{presente.evento.nome}">
+					<f:facet name="header">Evento</f:facet>
+					#{presente.evento.nome}
+				</p:column>
+				<p:column>
+					<f:facet name="header">Data evento</f:facet>
+					<h:outputText value="#{presente.dtEvento}" id="dataEvento">
+						<f:convertDateTime locale="pt,BR" dateStyle="long"
+									pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:commandButton value="Editar" >
+						<f:setPropertyActionListener value="#{presente}"
+							target="#{meusPresentesMB.presente}" />
+						<f:ajax execute="@this" render="@form" />
+					</h:commandButton>
+					<h:commandButton action="#{meusPresentesMB.deletar(presente)}" value="Excluir">
+						<f:ajax execute="@this" render="@form" />
+					</h:commandButton>
+				</p:column>
+			</p:dataTable>
+			<h3>Insira ou altere seus presentes:</h3>
+			<a name="ancora"></a>
+			<div>
+				<div class="row">
+ 		 			<div class="col-lg-6">
+						<div class="input-group">
+ 				 			<span class="input-group-addon" id="basic-addon1">Nome do Presente &raquo;</span>
+							<h:inputText id="inNome" value="#{meusPresentesMB.presente.nome}"
+							required="true" requiredMessage="Nome obrigatório!" class="form-control" aria-describedby="basic-addon1" />
+							<h:message for="inNome" errorStyle="background-color:red;" />
+						</div>
+					</div>
+					<div class="col-lg-6">
+   						<div class="input-group">
+  	    					<span class="input-group-addon" id="basic-addon1">Descrição &raquo;</span>
+    	    				<h:inputText value="#{meusPresentesMB.presente.descricao}" class="form-control" aria-describedby="basic-addon1"/>
+    					</div>
+  					</div>
+  				</div>
+  				<div class="row">
+ 		 			<div class="col-lg-6">
+						<div class="input-group">
+ 				 			<span class="input-group-addon" id="basic-addon1">Onde encontrar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;</span>
+							<h:inputText id="ondeEncontrar"	value="#{meusPresentesMB.presente.ondeEncontrar}" class="form-control" aria-describedby="basic-addon1" />
+						</div>
+					</div>
+					<div class="col-lg-6">
+   						<div class="input-group">
+  	    					<span class="input-group-addon" id="basic-addon1">Evento &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;</span>
+    	    				<h:selectOneMenu value="#{meusPresentesMB.presente.evento}"	converter="converterEvento" class="form-control" aria-describedby="basic-addon1">
+								<f:selectItems value="#{meusPresentesMB.eventos}" var="evento"
+								itemValue="#{evento}" itemLabel="#{evento.nome}" />
+								<f:attribute name="lista" value="#{meusPresentesMB.eventos}" />
+							</h:selectOneMenu>
+    					</div>
+  					</div>
+  				</div>
+  				<div class="row">
+ 		 			<div class="col-lg-6">
+						<div class="input-group">
+ 				 			<span class="input-group-addon" id="basic-addon1">Data evento &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;</span>
+ 				 			
+							<p:calendar style="z-index: 19" id="popup" value="#{meusPresentesMB.presente.dtEvento}" />
+							
+						</div>
+					</div>
+					<div class="col-lg-6">
+   						<div class="input-group">
+  	    					<span class="input-group-addon" id="basic-addon1">Imagem &nbsp;&nbsp;&nbsp;&raquo;</span>
+			 				 <p:fileUpload fileUploadListener="#{meusPresentesMB.upload}" auto="true" />
+    					</div>
+  					</div>
+  				</div>
+				<h:commandButton action="#{meusPresentesMB.salvar()}" value="Salvar" class="btn btn-default"/>
+  			</div>
+		</h:form>
+	</div>
+</ui:define>
+</body>
+</ui:composition>
