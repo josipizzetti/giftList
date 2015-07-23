@@ -17,9 +17,10 @@
 	<application>
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale> 
 			<supported-locale>en_US</supported-locale>
 		</locale-config>
-
+		
 		<resource-bundle>
 			<base-name>resources.messageJSF</base-name>
 			<var>i18n</var>

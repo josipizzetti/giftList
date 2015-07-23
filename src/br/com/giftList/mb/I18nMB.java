@@ -2,37 +2,20 @@ package br.com.giftList.mb;
 
 import java.util.Locale;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 @ManagedBean
+@ApplicationScoped
 public class I18nMB {
 
-	private String pais;
-	private String linguagem;
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
-	public String getLinguagem() {
-		return linguagem;
-	}
-
-	public void setLinguagem(String linguagem) {
-		this.linguagem = linguagem;
-	}
-
-	public String mudarIdioma(){
-		if (!"".equals(pais)){
-			mudarLocalidade(new Locale(linguagem, pais));
+	public String mudarIdioma(String locale){
+		if (!"".equals(locale)){
+			mudarLocalidade(new Locale(locale));
 		}else {
-			mudarLocalidade(new Locale(linguagem));
+			mudarLocalidade(new Locale("pt","BR"));
 		}
-		return null;
+		return "";
 	}
 
 	private void mudarLocalidade(Locale locale){

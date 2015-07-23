@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<head>
+<h:head>
 <title>Gift List</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
-
-</head>
-<body>
+</h:head>
+<h:body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -22,6 +22,7 @@
 			</button>
 			<a class="navbar-brand" href="index.jsf">Gift List</a>
 		</div>
+		
 		<div id="navbar" class="navbar-collapse collapse">
 			<h:form class="navbar-form navbar-right">
 				<div class="form-group">
@@ -82,26 +83,17 @@
 
 		<hr></hr>
 
-			<footer>
-			
-			<h:form>
-			<p>By Josi Pizzetti - Ger@ção TEC
-				<h:commandLink style="margin-left: 800px; color: black; font-weight: bold" value="| Pt-Br |" action="#{i18nMB.mudarIdioma}">
-					<f:setPropertyActionListener target="#{i18nMB.linguagem}" value="pt" />
-					<f:setPropertyActionListener target="#{i18nMB.pais}" value="BR" />
-					<f:ajax execute="@this" render="@all" />
-				</h:commandLink>
-		
-				<h:commandLink style="margin-left: 15px; color: black; font-weight: bold" value="| En-Us |" action="#{i18nMB.mudarIdioma}">
-					<f:setPropertyActionListener target="#{i18nMB.linguagem}" value="en" />
-					<f:setPropertyActionListener target="#{i18nMB.pais}" value="US" />
-					<f:ajax execute="@this" render="@all" />
-				</h:commandLink>
-			</p>
-			</h:form>
-	</footer>
+			<h:form id="formi18n">
+				<p>By Josi Pizzetti - Ger@ção TEC
+					<p:commandLink ajax="false" style="margin-left: 800px; color: black; font-weight: bold" value="| Pt-Br |" action="#{i18nMB.mudarIdioma('')}">
+					</p:commandLink>
+
+					<p:commandLink ajax="false" style="margin-left: 15px; color: black; font-weight: bold" value="| En-Us |" action="#{i18nMB.mudarIdioma('en_US')}">
+					</p:commandLink>
+				</p>
+			</h:form> 
 	</div>
 	
 
-</body>
+</h:body>
 </html>
