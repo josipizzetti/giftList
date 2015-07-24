@@ -59,7 +59,7 @@ public class UserPresentesMB implements Serializable{
 		}
 	}
 	
-	public void sendEmail() throws EmailException {
+	public String sendEmail() throws EmailException {
 		
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpServletRequest request = (HttpServletRequest) req;
@@ -87,10 +87,9 @@ public class UserPresentesMB implements Serializable{
 	   email.setAuthentication("giftlist.aviso@gmail.com", "Giftlist2015*");
 	   System.out.println("enviando...");
 	   email.send();
-	   FacesContext context = FacesContext.getCurrentInstance();
-	   context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso enviado com sucesso!",""));
 	   
 	   System.out.println("Email enviado!");
+	   return "";
 	}
 
 

@@ -1,5 +1,7 @@
 package br.com.giftList.mb;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -87,6 +90,16 @@ public class MeusPresentesMB implements Serializable{
 	public void salvar(){
 		presente.setUsuario(usuario);//o construtor desta sessao tem o id usuario, para salvar chamamos aqui
 		if(presente.getId() == 0){
+			
+			if(presente.getImagem() == null){
+				InputStream inputStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("Picture1.png");
+				try {
+					presente.setImagem(IOUtils.toByteArray(inputStream));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			presenteDAO.salvar(presente);
 		}else{
 			presenteDAO.atualizar(presente);

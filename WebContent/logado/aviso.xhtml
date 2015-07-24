@@ -23,10 +23,17 @@
 					</p:graphicImage>
 					<h2><h:outputText value="#{presenteSelecionadoMB.presente.nome}" /></h2>
 					<br />
-					<p:commandButton value="Enviar aviso" image="ui-icon-mail-closed"	action="#{userPresentesMB.sendEmail()}">
+					
+					<h:form id="test">
+					<p:commandButton onclick="PF('dialogEnviarEmail').show();" id="botaoEnviarEmail" value="Enviar aviso" image="ui-icon-mail-closed" action="#{userPresentesMB.sendEmail()}">
+						
 					</p:commandButton>
-					<p:messages />
 				
+				 
+				<p:dialog header="Aviso" widgetVar="dialogEnviarEmail" showEffect="explode" hideEffect="fade" height="40">
+				    <h:outputText value="Aviso enviado com sucesso!!" />
+				</p:dialog>
+				</h:form>
 				</div>
 		</div>
 
