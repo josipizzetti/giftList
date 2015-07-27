@@ -6,15 +6,11 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 @ManagedBean
-@ApplicationScoped
 public class I18nMB {
 
 	public String mudarIdioma(String locale){
-		if (!"".equals(locale)){
-			mudarLocalidade(new Locale(locale));
-		}else {
-			mudarLocalidade(new Locale("pt","BR"));
-		}
+			mudarLocalidade(new Locale("en", "US"));
+		
 		return "";
 	}
 

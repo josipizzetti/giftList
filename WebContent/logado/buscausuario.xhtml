@@ -22,7 +22,7 @@
 		<h:form id="form">
 			
 			<h:inputText id="filtro" value="#{usuarioMB.filtro}" />
-			<h:commandButton action="#{usuarioMB.buscaPorNome()}" value="Buscar">
+			<h:commandButton action="#{usuarioMB.buscaPorNome()}" value="#{i18n.buscar}">
 				<f:ajax execute="filtro" render="@form" />
 			</h:commandButton>
 			<p:dataTable id="showList" value="#{usuarioMB.lista}" var="usuario">
